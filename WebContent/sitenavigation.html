@@ -1,0 +1,64 @@
+<br>
+<div class="row">
+		<div class="col-md-1">
+		</div>
+		<div class="col-md-2">
+			<img class="img-responsive" alt="Responsive image" src ="${pageContext.request.contextPath}/images/site/logo.jpg">
+		</div>
+		<div class="col-md-6">	
+			<img class="img-responsive" alt="Responsive image" src ="${pageContext.request.contextPath}/images/site/Banner.png">
+		</div>
+		<div class="col-md-3">
+		</div>
+</div>
+<br>
+	
+	<center>
+	<!--             Nav Bar Starts Here      -->
+	<nav class="navbar navbar-default">
+		   
+		   
+		 
+		 <ul class="nav navbar-nav" id="nav-list">
+			<li class="navigation-link"><a href="index.jsp">Home</a></li>
+		 	<li class="navigation-link"><a href="about.jsp">About</a></li>
+		 	<li class="navigation-link"><a href="profratingsearch.jsp">Search A Professor</a></li>
+		 	<li class="navigation-link"><a href="profsearch.jsp">Rate A Professor</a></li>
+		 	<li class="navigation-link"><a href="upload.jsp">Upload File</a></li>
+		 	<li class="navigation-link"><a href="search.jsp">Course and File Search</a></li>
+		 	<li class="navigation-link"><a href="filerequests.jsp">File Requests</a></li> 	
+		 	<li class="navigation-link"><a href="requestfile.jsp">Request A File</a></li> 	
+		 	<li class="navigation-link"><a href="contactadmin.jsp">Contact Admin</a></li>
+		 </ul>		 
+		 
+		 <div class="container container-fluid"> 
+		<ul class="nav navbar-nav">
+			<li class="navigation-link" id="user-button"><a id="user-link" href="registration.jsp">Register</a></li>
+		 	<li class="navigation-link"><button id="signin-button" type="button" class="btn navbar-btn btn-default">Sign In</button></li>
+		 </ul>   
+		   </div>
+		   
+	
+		
+		
+	</nav>
+	</center>
+	<!--             Nav Bar Ends Here      -->
+	
+	<div class="row">
+		<div class="col-md-3">
+		</div>
+		<div class="col-md-3">
+		</div>
+		<div class="col-md-3">
+		</div>
+		<div class="col-md-3">
+		</div>
+	</div>
+<script>
+$(document).ready(function(){
+	$("#signin-button").click(function(){
+		window.location.replace("${pageContext.request.contextPath}/login.jsp");
+	});
+});
+</script>

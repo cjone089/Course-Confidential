@@ -1,0 +1,141 @@
+<!--Bootstrap Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!-- jQuery --->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+<!-- Angular JS -->
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<!--Sticky Footer -->
+<link rel="stylesheet" href="stickyfooter.css">
+
+
+<script>
+
+var userstatus;
+var usertype;
+var username;
+
+$(document).ready(function(){
+	authUser();
+})
+
+function logout()
+{
+
+	 $.ajax({
+	        type: "POST",
+	        url: "${pageContext.request.contextPath}/LoginServlet",
+	        data: {postrequest: "logout", }
+	      }).done(function( msg ) 
+	      {
+	    	  
+	       }
+	    );
+}
+
+function authUser()
+{
+	
+	 
+	//check if user status cookie is set
+	if(checkCookie("user-status")==1)
+	{
+		userstatus = getCookie("user-status");
+		usertype = getCookie("user-type");
+		username = getCookie("user-name");
+		userid = getCookie("user-id");
+		if(usertype != "guest")
+		{
+			$("#user-link").attr("href", "#");
+			$("#user-link").html("<span class='glyphicon glyphicon-user' aria-hidden='true'></span> <strong> Hello, "+username+"</strong>");
+			
+			$("#signin-button").html("Logout");
+			$("#signin-button").click(function(){logout();});
+			if(usertype === "Professor")
+			{
+				$.ajax({
+			        type: "POST",
+			        url: "${pageContext.request.contextPath}/LoginServlet",
+			        data: {postrequest: "send-profid", user_id : userid }
+			      }).done(function( msg ) {
+			    	response = $.parseJSON(msg);
+			    	if(response.professorfound === "success"){
+			    		$("#nav-list").append('<li class="navigation-link"><a href="professoradmin.jsp?profid='+response.profid+'">Professor</a></li>');
+			    	}
+			        }
+			      );
+			}
+		}
+		else
+		{
+			$("#user-link").html("<span class='glyphicon glyphicon-user' aria-hidden='true'></span> <strong> Hello, "+username+" | Register</strong>");
+		}
+		
+
+	}
+	else
+	{
+		 $.ajax({
+		        type: "POST",
+		        url: "${pageContext.request.contextPath}/RegistrationServlet",
+		        data: {postrequest: "create_guest", }
+		      }).done(function( msg ) {
+		    	  
+		        }
+		      );
+	}
+	
+}
+
+
+//set a cookie on the users browser
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+
+//retrieve the value of a cookie that is already set on the users browser
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+    }
+    return "";
+}
+
+//checks if the specified cookie exists, 1 for true, 0 for false
+function checkCookie(cname) {
+    var user = getCookie(cname);
+    if (user != "") {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+
+$(function() {
+	$( ".navigation-link" ).mouseover(function() {
+		$(this).addClass( "active" );
+		
+	});
+	
+	$( ".navigation-link" ).mouseout(function() {
+		$(this).removeClass( "active" );
+	});
+		
+	
+});
+
+
+</script>
