@@ -1,2 +1,2 @@
-# softengspring2015
+# Course Confidential
 Repository for Software Engineering Spring 2015
